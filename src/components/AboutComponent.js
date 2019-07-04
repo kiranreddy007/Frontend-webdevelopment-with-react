@@ -1,42 +1,33 @@
 import React from 'react';
-import { Breadcrumb, BreadcrumbItem, Card,CardImg, CardBody,CardImgOverlay,CardTitle, CardHeader, Media } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-function RenderLeader({leader}){
-    
-    return (
-        
-        <Media>
-      <Media left  className="col-2">
-        <img src={leader.image} alt={leader.name}/>
-      </Media>
-      <Media body >
-        <Media heading className="row" >
-          {leader.name}
-        </Media>
-        <Media className="row">
-        {leader.designation}
-        </Media>
-        <Media className="row">
-       {leader.description}
-       </Media>
-       </Media>
-       
-      
-    </Media>
-    
-    );
-    
+function About(props) {
+
+    const leaders = props.leaders.map(leader => {
+        return (
+            <RenderLeader leader={leader} />
+        );
+    });
+
+
+    function RenderLeader({leader}){
+        return (    
+            <div key={leader.id} className="col-12 mt-5">
+                <Media tag="li">
+                  <Media left middle>
+                      <Media object src={leader.image} alt={leader.name} />
+                  </Media>
+                  <Media body className="ml-5">
+                    <Media heading>{leader.name}</Media>
+                    <p>{leader.designation}</p>
+                    <p>{leader.description}</p>
+                  </Media>
+                </Media>
+              </div>
+        );
     }
-    const About =(props) =>{
-        const leaders = props.leaders.map((leader) => {
-          return (
-            <div  >
-             <RenderLeader leader={leader} />
-            </div>
-          );
-      });
-      
+
     return(
         <div className="container">
             <div className="row">
@@ -93,15 +84,11 @@ function RenderLeader({leader}){
                 </div>
                 <div className="col-12">
                     <Media list>
-                        <Media className="row">
                         {leaders}
-                        </Media>
-                        
                     </Media>
                 </div>
             </div>
         </div>
     );
 }
-
 export default About;
